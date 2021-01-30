@@ -4,27 +4,7 @@
     <div class="body">
       <el-container>
         <el-main>
-          <el-row>
-            <el-col
-              :xs="24"
-              :sm="12"
-              :md="6"
-              :lg="6"
-              :xl="6"
-              v-for="item in showProducts"
-              :key="item.id"
-            >
-              <!-- <div> -->
-              <div class="image">
-                <img :src="item.image" alt="" />
-              </div>
-              <div class="title">{{ item.title }}</div>
-              <div class="category">Category: {{ item.category }}</div>
-              <p class="desc">{{ item.description }}</p>
-              <div class="price">${{ item.price.toFixed(2) }}</div>
-              <!-- </div> -->
-            </el-col>
-          </el-row>
+          <Product :dataSource="showProducts"/>
           <Pagination
             :total="allProducts.length"
             :pagesize="pageSize"
@@ -34,7 +14,7 @@
         </el-main>
       </el-container>
     </div>
-    <Footer/>
+    <Footer />
   </div>
 </template>
 
@@ -43,6 +23,7 @@ import { mapActions, mapState } from "vuex";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Pagination from "@/components/Pagination";
+import Product from '@/components/Product';
 
 export default {
   name: "Home",
@@ -61,6 +42,7 @@ export default {
     Header,
     Footer,
     Pagination,
+    Product
   },
   methods: {
     ...mapActions(["getAllProducts","changeCurrentPage"]),
@@ -90,50 +72,50 @@ export default {
       // line-height: 160px;
       width: 100%;
       padding: 0 30px;
-      .el-row {
-        display: flex;
-        flex-wrap: wrap;
-        // justify-content: space-between;
-        .el-col {
-          // display: flex;
-          border: 1px solid #ccc;
-          padding: 20px;
-          // text-align: center;
-          margin-bottom: 15px;
-          .image {
-            height: 180px;
-            // height: 70%;
-            width: 100%;
-            img {
-              width: 100%;
-              height: 100%;
-              object-fit: contain;
-            }
-          }
-          .category {
-            padding-bottom: 10px;
-          }
-          .title {
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            padding: 10px 0;
-          }
-          .desc {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            word-break: break-all;
-            overflow: hidden;
-            // padding-bottom: 10px;
-          }
-          .price {
-            font-size: 30px;
-            padding-top: 10px;
-          }
-        }
-      }
+      // .el-row {
+      //   display: flex;
+      //   flex-wrap: wrap;
+      //   // justify-content: space-between;
+      //   .el-col {
+      //     // display: flex;
+      //     border: 1px solid #ccc;
+      //     padding: 20px;
+      //     // text-align: center;
+      //     margin-bottom: 15px;
+      //     .image {
+      //       height: 180px;
+      //       // height: 70%;
+      //       width: 100%;
+      //       img {
+      //         width: 100%;
+      //         height: 100%;
+      //         object-fit: contain;
+      //       }
+      //     }
+      //     .category {
+      //       padding-bottom: 10px;
+      //     }
+      //     .title {
+      //       width: 100%;
+      //       overflow: hidden;
+      //       text-overflow: ellipsis;
+      //       white-space: nowrap;
+      //       padding: 10px 0;
+      //     }
+      //     .desc {
+      //       display: -webkit-box;
+      //       -webkit-line-clamp: 2;
+      //       -webkit-box-orient: vertical;
+      //       word-break: break-all;
+      //       overflow: hidden;
+      //       // padding-bottom: 10px;
+      //     }
+      //     .price {
+      //       font-size: 30px;
+      //       padding-top: 10px;
+      //     }
+      //   }
+      // }
       width: 100%;
       // ul {
       //   width: 100%;

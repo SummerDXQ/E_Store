@@ -4,6 +4,9 @@
       <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="logo">
         <span>E_STORE</span>
       </el-col>
+       <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="logo">
+        <router-link to="/cart">Cart</router-link>
+      </el-col>
       <el-col :xs="3" :sm="3" :md="6" :lg="6" :xl="6" class="search_bar">
         <SearchBar />
       </el-col>

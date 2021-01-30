@@ -15,6 +15,7 @@ const types = {
   SET_CURRENT_PAGE: "SET_CURRENT_PAGE",
   SET_SELECTED_CATEGORY: "SET_SELECTED_CATEGORY",
   SET_SORTING_VALUE: "SET_SORTING_VALUE",
+  SET_CART_INFO: "SET_CART_INFO",
 };
 
 const state = {
@@ -25,6 +26,7 @@ const state = {
   categories: JSON.parse(localStorage.getItem("estore_categories")) || [],
   selectedCategory: "",
   sortingvalue: "",
+  cartInfo:""
   // searchKeyword: "",
 };
 
@@ -66,6 +68,9 @@ const mutations = {
   [types.SET_SORTING_VALUE](state, payload) {
     state.sortingvalue = payload;
   },
+  [types.SET_CART_INFO](state, payload) {
+    state.cartInfo = payload;
+  },
 };
 
 const actions = {
@@ -96,7 +101,7 @@ const actions = {
     commit(types.SET_CATEGORIES, categories);
   },
   async filterByCategory({ commit, rootState }, payload) {
-    console.log(payload);
+    // console.log(payload);
     let products = await axiosInstance(`/products/category/${payload}`);
     commit(types.SET_ALL_PRODUCTS, products);
     let totalPageSection = paginate(
@@ -108,6 +113,11 @@ const actions = {
       types.SET_SHOW_PRODUCTS,
       totalPageSection[rootState.currentPage - 1]
     );
+  },
+  async getCartInfo({commit}){
+    let cartInfo = await axiosInstance('/carts/user/1');
+    commit(types.SET_CART_INFO, cartInfo);
+    console.log(cartInfo);
   },
   sortProduct({ commit, rootState }, payload) {
     commit(types.SORT_PRODUCTS, payload);
