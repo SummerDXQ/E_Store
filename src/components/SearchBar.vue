@@ -2,10 +2,10 @@
   <div class="search_bar" :lg="6">
     <el-input
       class="keyword"
-      placeholder="search by id"
+      placeholder="search product"
       v-model="keyword"
     ></el-input>
-    <el-button type="primary" @click="search">search</el-button>
+    <el-button @click="search">SEARCH</el-button>
     <el-alert
       v-if="showWarning"
       title="please input product ID"
@@ -65,10 +65,25 @@ export default {
 .search_bar {
   .el-input {
     width: 65%;
+
+    .el-input__inner {
+      border-radius: 0;
+      background: #f7f7f9;
+    }
   }
   .el-button {
-    margin-left: 2%;
-    width: 30%;
+    margin-left: 5px;
+    width: 25%;
+    color: #4bbf73;
+    border-color: #4bbf73;
+    background-color: #343a40;
+    // text-align: left;
+    font-size: 12px;
+    border-width: 2px;
+    border-radius: 0;
+    font-weight: 500;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
 </style>

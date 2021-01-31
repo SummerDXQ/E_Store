@@ -1,8 +1,8 @@
 <template>
-  <div class="pagination" v-if="total>pagesize">
+  <div class="pagination" v-if="total > pagesize">
     <el-pagination
       background
-      @current-change="$emit('handleCurrentChange',pageNumber)"
+      @current-change="$emit('handleCurrentChange', pageNumber)"
       :current-page.sync="pageNumber"
       :page-size="pagesize"
       layout="prev, pager, next"
@@ -18,37 +18,37 @@ export default {
     total: {
       type: Number,
     },
-    pagesize:{
-        type: Number,
+    pagesize: {
+      type: Number,
     },
-    currentPage:{
-        type: Number,
-    }
+    currentPage: {
+      type: Number,
+    },
   },
-  data(){
-      return {
-          pageNumber:this.currentPage
-      }
+  data() {
+    return {
+      pageNumber: this.currentPage,
+    };
   },
-//   computed:{
-//       current:{
-//           get(){
-//               return this.currentPage
-//           },
-//           set(val){
-//               console.log(val)
-//               return val
-//             //   this.currentPage = val;
-            
-//           }
-//       }
-//   },
-//   mounted(){
-//       console.log('current page',this.currentPage)
-//   },
-//   destroyed(){
-//       console.log('destroyed')
-//   }
+  //   computed:{
+  //       current:{
+  //           get(){
+  //               return this.currentPage
+  //           },
+  //           set(val){
+  //               console.log(val)
+  //               return val
+  //             //   this.currentPage = val;
+
+  //           }
+  //       }
+  //   },
+  //   mounted(){
+  //       console.log('current page',this.currentPage)
+  //   },
+  //   destroyed(){
+  //       console.log('destroyed')
+  //   }
 };
 </script>
 
@@ -57,9 +57,12 @@ export default {
   // height: 20px;
   // padding: 10px 0;
   padding: 20px 0;
-  .el-pagination{
+  .el-pagination {
     text-align: center;
-    
   }
 }
+// .el-pagination.is-background .el-pager li:not(.disabled).active {
+//     background-color: #343a40 !important;
+//     color: #FFF;
+//   }
 </style>

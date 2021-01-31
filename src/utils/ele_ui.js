@@ -12,7 +12,10 @@ import {
   Select,
   Option,
   Pagination,
-  Alert
+  Alert,
+  Menu,
+  Submenu,
+  MenuItem
 } from "element-ui";
 
 Vue.use(Button);
@@ -28,3 +31,6 @@ Vue.use(Select);
 Vue.use(Option);
 Vue.use(Pagination);
 Vue.use(Alert);
+Vue.use(Menu);
+Vue.use(Submenu);
+Vue.use(MenuItem);

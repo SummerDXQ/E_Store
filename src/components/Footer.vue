@@ -1,6 +1,6 @@
 <template>
   <footer>
-    footer
+    WELCOME to ESTORE
   </footer>
 </template>
 
@@ -8,8 +8,8 @@
 footer {
   height: 60px;
   width: 100vw;
-  background-color: #b3c0d1;
-  color: #333;
+  background-color: #343a40;
+  color: #FFF;
   text-align: center;
   // height: 15vh !important;
   line-height: 60px;

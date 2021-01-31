@@ -8,11 +8,24 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <!-- reset css -->
     <link rel="stylesheet" href="css/reset.css" />
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <style>
       html,
       body {
         width: 100%;
         height: 100%;
+        font-family: "Nunito Sans", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+          "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+      .el-select-dropdown {
+        top: 60px !important;
+      }
+      @media (max-width: 767px) {
+        .el-select-dropdown {
+          top: 120px !important;
+        }
       }
     </style>
   </head>

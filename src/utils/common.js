@@ -27,3 +27,10 @@ export const paginate = (dataSource, pageSize) => {
   }
   return totalPageSection;
 };
+
+export const errorHandle = (result) => {
+  if (result.unifiedErrorCode) {
+    alert(result.errorMessage);
+    return;
+  }
+};

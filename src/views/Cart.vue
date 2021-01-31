@@ -1,30 +1,22 @@
 <template>
   <div class="cart">
     <span class="title">SHOOPPING CART</span>
-    <!-- <el-row>
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="logo">
-        <span>E_STORE</span>
-      </el-col>
-    </el-row> -->
-
-    <!-- <el-row v-for="item in cartInfo" :key="item.id">
-      <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4" class="logo">
-        <span>E_STORE</span>
-      </el-col>
-    </el-row> -->
-    <el-row class="cart_detail">
+    <el-row class="cart_detail" v-if="cartInfo && allProducts">
       <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16">
         <ul>
           <li v-for="item in cartInfo" :key="item.id">
             <div class="date">
-              Date: {{ moment(item.date).format("DD/MM/YYYY h:mm a") }}
+              <span
+                >Add to cart at:
+                {{ moment(item.date).format("DD/MM/YYYY h:mm a") }}</span
+              >
             </div>
             <div
               v-for="subItem in item.products"
               :key="subItem.productId + item.date"
             >
               <el-row>
-                <el-col :xs="24" :sm="5" :md="5" :lg="5" :xl="5">
+                <el-col :xs="4" :sm="4" :md="4" :lg="4" :xl="4">
                   <div class="image">
                     <img
                       :src="allProducts[subItem.productId - 1].image"
@@ -32,21 +24,33 @@
                     />
                   </div>
                 </el-col>
-                <el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16">
+                <el-col
+                  :xs="{ span: 18, offset: 1 }"
+                  :sm="18"
+                  :md="18"
+                  :lg="18"
+                  :xl="18"
+                >
                   <span>{{ allProducts[subItem.productId - 1].title }}</span>
                 </el-col>
 
-                <el-col :xs="24" :sm="3" :md="3" :lg="3" :xl="3">
-                  <span>{{ subItem.quantity }}</span>
+                <el-col :xs="1" :sm="1" :md="1" :lg="1" :xl="1">
+                  <span class="quantity">{{ subItem.quantity }}</span>
                 </el-col>
               </el-row>
             </div>
           </li>
         </ul>
       </el-col>
-      <el-col :xs="24" :sm="8" :md="8" :lg="8" :xl="8" class="total">
-        <div>TOTAL () ITEMS</div>
-        <div></div>
+      <el-col
+        :xs="24"
+        :sm="{ span: 7, offset: 1 }"
+        :md="{ span: 7, offset: 1 }"
+        :lg="{ span: 7, offset: 1 }"
+        :xl="{ span: 7, offset: 1 }"
+        class="total"
+      >
+        <div class="total_number">TOTAL ({{ totalNumber }}) ITEMS</div>
         <el-button type="primary">CHECKOUT</el-button>
       </el-col>
     </el-row>
@@ -66,58 +70,64 @@ export default {
   },
   computed: {
     ...mapState(["cartInfo", "allProducts"]),
-    totalNumber() {},
+    totalNumber() {
+      let total = 0;
+      this.cartInfo.forEach((item) => {
+        item.products.forEach((subItem) => {
+          total += subItem.quantity;
+        });
+      });
+      return total;
+    },
     totalPrice() {},
   },
   created() {
     this.getCartInfo();
-
-    // this.getProducts(); // 重复
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      vm.getAllProducts();
+    });
   },
   methods: {
-    ...mapActions(["getCartInfo"]),
-    // async getCartInfo() {
-    //   this.cartInfo = await this.$axios("/carts");
-    //   console.log(this.cartInfo);
-    // },
-    // 重复
-    // async getProducts() {
-    //   let products = await this.$axios("/products");
-    //   this.products = Object.freeze(products);
-    //   console.log(this.products);
-    // },
+    ...mapActions(["getCartInfo", "getAllProducts"]),
   },
 };
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .cart {
   width: 100%;
   box-sizing: border-box;
   padding: 20px 10px;
-  text-align: center;
+  color: #343a40;
+  .title {
+    font-size: 30px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
   .cart_detail {
-    .title {
-      font-size: 50px;
-      // padding-bottom:20px ;
-    }
     ul {
       width: 100%;
       margin-top: 30px;
       box-sizing: border-box;
       li {
         width: 100%;
-        // margin-bottom: 10px;
-        border: 1px solid #ccc;
-        padding: 10px;
+        border: 1px solid #343a40;
         box-sizing: border-box;
-        // text-align: left;
+        &:first-child {
+          border-bottom: none;
+        }
         .date {
           text-align: left;
+          border-bottom: 1px solid #343a40;
+          padding: 10px 0;
+          span {
+            padding-left: 10px;
+            font-weight: 700;
+          }
         }
         .el-row {
-          margin-bottom: 20px;
-          // border: 1px solid #ccc;
           box-sizing: border-box;
           padding: 10px;
           display: flex;
@@ -125,9 +135,9 @@ export default {
           height: 100px;
           .el-col {
             height: 100%;
-            line-height: 80px;
+            line-height: 40px;
             .image {
-              width: 50%;
+              width: 100%;
               height: 100%;
               img {
                 width: 100%;
@@ -135,16 +145,33 @@ export default {
                 object-fit: contain;
               }
             }
+            .quantity {
+              line-height: 80px;
+            }
+          }
+          @media (max-width: 768px) {
+            .el-col {
+              line-height: 20px;
+            }
           }
         }
       }
     }
   }
   .total {
-    border: 1px solid #ccc;
-    height: 100px;
+    border: 1px solid #343a40;
     margin-top: 30px;
-    padding: 10px;
+    padding: 20px;
+    text-align: center;
+    .total_number {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+    .el-button {
+      background: #343a40;
+      border: none;
+      outline: none;
+    }
   }
 }
 </style>

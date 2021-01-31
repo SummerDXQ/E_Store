@@ -45,11 +45,11 @@ instance.defaults.validateStatus = (status) => {
 // });
 instance.interceptors.response.use(
   (response) => {
-    // console.log(response)
     return response.data;
   },
   (reason) => {
     let response = reason.response;
+    // console.log(reason);
     if (response) {
       switch (response.status) {
         case 400:
@@ -66,7 +66,10 @@ instance.interceptors.response.use(
       }
     }
     // return Promise.reject(reason);
-    return reason;
+    return {
+      unifiedErrorCode: 1,
+      errorMessage: "Network error, please try again later!",
+    };
   }
 );
 

@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axiosInstance from "../api/http";
-import { paginate, sortBy } from "../utils/common";
+import { paginate, sortBy, errorHandle } from "../utils/common";
 
 Vue.use(Vuex);
 
@@ -28,7 +28,7 @@ const state = {
   selectedCategory: "",
   sortingvalue: "",
   cartInfo: "",
-  userInfo: "",
+  userInfo: {},
   // searchKeyword: "",
 };
 
@@ -81,7 +81,7 @@ const mutations = {
 const actions = {
   async getAllProducts({ commit, rootState }) {
     let products = await axiosInstance("/products");
-    // error handling
+    errorHandle(products);
     commit(types.SET_ALL_PRODUCTS, products);
     let totalPageSection = paginate(
       products,
@@ -96,18 +96,20 @@ const actions = {
   async searchById({ commit }, id) {
     commit(types.SET_ALL_PRODUCTS, []);
     let products = await axiosInstance(`/products/${id}`);
+    errorHandle(products);
     commit(types.SET_ALL_PRODUCTS, products);
     commit(types.SET_SHOW_PRODUCTS, products);
     commit(types.SET_TOTAL_PAGE_SECTION, []);
   },
   async getAllCategories({ commit }) {
     let categories = await axiosInstance("/products/categories");
+    errorHandle(categories);
     localStorage.setItem("estore_categories", JSON.stringify(categories));
     commit(types.SET_CATEGORIES, categories);
   },
   async filterByCategory({ commit, rootState }, payload) {
-    // console.log(payload);
     let products = await axiosInstance(`/products/category/${payload}`);
+    errorHandle(products);
     commit(types.SET_ALL_PRODUCTS, products);
     let totalPageSection = paginate(
       products,
@@ -121,20 +123,21 @@ const actions = {
   },
   async getCartInfo({ commit }) {
     let cartInfo = await axiosInstance("/carts/user/1");
+    errorHandle(cartInfo);
     commit(types.SET_CART_INFO, cartInfo);
-    // console.log(cartInfo);
+    console.log(cartInfo);
   },
   async getUserInfo({ commit }) {
     let userInfo = await axiosInstance("/users/1");
-    console.log(userInfo);
+    errorHandle(userInfo);
+    // console.log(userInfo);
     commit(types.SET_USER_INFO, userInfo);
   },
-  async updateUserInfo({commit},payload){
-
-    
+  async updateUserInfo({ commit }, payload) {
     console.log(JSON.stringify(payload));
-    let userInfo = await axiosInstance.put("/users/1",JSON.stringify(payload));
-    console.log(userInfo);
+    let userInfo = await axiosInstance.put("/users/1", JSON.stringify(payload));
+    errorHandle(userInfo);
+    commit(types.SET_USER_INFO, userInfo);
   },
   sortProduct({ commit, rootState }, payload) {
     commit(types.SORT_PRODUCTS, payload);
@@ -152,7 +155,6 @@ const actions = {
   },
   changeCurrentPage({ commit, rootState }, payload) {
     commit(types.SET_CURRENT_PAGE, payload);
-    // commit(types.SET_TOTAL_PAGE_SECTION,)
     commit(
       types.SET_SHOW_PRODUCTS,
       rootState.totalPageSection[rootState.currentPage - 1]
