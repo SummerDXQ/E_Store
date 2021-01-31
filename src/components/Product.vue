@@ -13,9 +13,10 @@
         <img :src="item.image" alt="" />
       </div>
       <div class="title">{{ item.title }}</div>
-      <div class="category">Category: {{ item.category }}</div>
+     
       <p class="desc">{{ item.description }}</p>
-      <div class="price">${{ item.price.toFixed(2) }}</div>
+      <span class="price">${{ item.price.toFixed(2) }}</span>
+       <span class="category">{{ item.category }}</span>
     </el-col>
   </el-row>
 </template>
@@ -35,16 +36,12 @@ export default {
 .el-row {
   display: flex;
   flex-wrap: wrap;
-  // justify-content: space-between;
   .el-col {
-    // display: flex;
-    border: 1px solid #ccc;
     padding: 20px;
-    // text-align: center;
     margin-bottom: 15px;
+    position: relative;
     .image {
       height: 180px;
-      // height: 70%;
       width: 100%;
       img {
         width: 100%;
@@ -53,7 +50,13 @@ export default {
       }
     }
     .category {
-      padding-bottom: 10px;
+      padding: 2px;
+      background: #FFAE00;
+      color: #5B3F04;
+      font-size: 14px;
+      position: absolute;
+      top: 0px;
+      right: 0px;
     }
     .title {
       width: 100%;
@@ -61,6 +64,7 @@ export default {
       text-overflow: ellipsis;
       white-space: nowrap;
       padding: 10px 0;
+      font-weight: bolder;
     }
     .desc {
       display: -webkit-box;
@@ -68,11 +72,13 @@ export default {
       -webkit-box-orient: vertical;
       word-break: break-all;
       overflow: hidden;
-      // padding-bottom: 10px;
+      color: #ccc;
+      font-size: 12px;
     }
     .price {
       font-size: 30px;
-      padding-top: 10px;
+      display: inline-block;
+      margin-top: 10px;
     }
   }
 }

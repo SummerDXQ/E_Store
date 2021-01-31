@@ -21,35 +21,13 @@ instance.defaults.withCredentials = true;
 instance.defaults.validateStatus = (status) => {
   return status >= 200 && status < 400;
 };
-// instance.defaults.headers.post["Content-Type"] =
-//   "application/x-www-form-urlencoded";
-// instance.defaults.transformRequest = (data, headers) => {
-//   const ContentType =
-//     headers["Content-Type"] ||
-//     headers.common["Content-Type"] ||
-//     headers.post["Content-Type"];
-//   if (ContentType === "application/x-www-form-urlencoded") {
-//     return qs.stringify(data);
-//   }
-//   if (ContentType === "application/json") {
-//     return JSON.stringify(data);
-//   }
-//   return data;
-// };
-// axios.interceptors.request.use((config) => {
-//   const token = localStorage.getItem("X-Token");
-//   if (token) {
-//     config.headers["Authorization"] = token;
-//   }
-//   return config;
-// });
 instance.interceptors.response.use(
   (response) => {
     return response.data;
   },
   (reason) => {
     let response = reason.response;
-    // console.log(reason);
+    // for developer
     if (response) {
       switch (response.status) {
         case 400:
@@ -59,34 +37,18 @@ instance.interceptors.response.use(
       }
     } else {
       if (reason && reason.code === "ECONNABORTED") {
-        //   timeout or request abort
+        // timeout or request abort
       }
       if (!navigator.onLine) {
-        //   network error
+        // network error
       }
     }
-    // return Promise.reject(reason);
+    // for user
     return {
       unifiedErrorCode: 1,
       errorMessage: "Network error, please try again later!",
     };
   }
 );
-
-// 业务层的失败的统一处理 (业务code失败的提示)
-// export function queryGET(url, params = {}, config = {}) {
-//   config.params = params;
-//   return instance.get(url, config).then((data) => {
-//       // console.log(data);
-//       return data;
-//     // let code = +data.code;
-//     // if (code === 0) {
-//     //   return data;
-//     // }
-//     // 统一做提示
-//     // ...
-//     // return Promise.reject(data);
-//   });
-// }
 
 export default instance;

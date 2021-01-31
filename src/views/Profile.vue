@@ -7,10 +7,16 @@
     </el-row>
     <div class="userInfo" v-if="userInfo">
       <el-row v-if="userInfo.name">
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>First Name:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input first name"
             v-model="userInfo.name.firstname"
@@ -19,10 +25,16 @@
       </el-row>
 
       <el-row v-if="userInfo.name">
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5}"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Last Name:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input last name"
             v-model="userInfo.name.lastname"
@@ -31,10 +43,16 @@
       </el-row>
 
       <el-row>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Email:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input email"
             v-model="userInfo.email"
@@ -43,10 +61,16 @@
       </el-row>
 
       <el-row>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Username:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input username"
             v-model="userInfo.username"
@@ -55,10 +79,16 @@
       </el-row>
 
       <el-row>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Phone:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input phone"
             v-model="userInfo.phone"
@@ -67,10 +97,16 @@
       </el-row>
 
       <el-row>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Password:</span>
         </el-col>
-        <el-col :xs="20" :sm="20" :md="20" :lg="6" :xl="6">
+        <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
           <el-input
             placeholder="Please input password"
             v-model="userInfo.password"
@@ -79,40 +115,46 @@
       </el-row>
 
       <el-row v-if="userInfo.address">
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col
+          :xs="{ span: 5 }"
+          :sm="{ span: 3, offset: 1 }"
+          :md="{ span: 4, offset: 2 }"
+          :lg="{ span: 2, offset: 5 }"
+          :xl="{ span: 2, offset: 5 }"
+        >
           <span>Address:</span>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="17" :sm="4" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Unit NO."
             v-model="userInfo.address.number"
           ></el-input>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Street"
             v-model="userInfo.address.street"
           ></el-input>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="City"
             v-model="userInfo.address.city"
           ></el-input>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="3" :xl="2">
           <el-input
             placeholder="Zipcode"
             v-model="userInfo.address.zipcode"
           ></el-input>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Latitude"
             v-model="userInfo.address.geolocation.lat"
           ></el-input>
         </el-col>
-        <el-col :xs="4" :sm="4" :md="4" :lg="2" :xl="2">
+        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Longitude"
             v-model="userInfo.address.geolocation.long"
@@ -125,34 +167,42 @@
         </el-col>
       </el-row>
     </div>
-    <!-- <el-row>
-      <el-col :xs="24">
-        <el-button type="primary" @click="update">Update</el-button>
-      </el-col>
-    </el-row> -->
   </div>
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapState } from "vuex";
 
 export default {
   name: "Profile",
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.getUserInfo();
+      if (vm.showSearchBar) {
+        vm.changeShowSearchBar(false);
+      }
+      if (vm.showSorting) {
+        vm.changeShowSorting(false);
+      }
+      if (vm.showFilter) {
+        vm.changeShowFilter(false);
+      }
     });
   },
   computed: {
-    userInfo: {
-      get() {
-        return this.$store.state.userInfo;
-      },
-      set() {},
+    ...mapState(["showSearchBar", "showSorting", "showFilter"]),
+    userInfo(){
+       return this.$store.state.userInfo;
     }
   },
   methods: {
-    ...mapActions(["getUserInfo", "updateUserInfo"]),
+    ...mapActions([
+      "getUserInfo",
+      "updateUserInfo",
+      "changeShowSearchBar",
+      "changeShowSorting",
+      "changeShowFilter",
+    ]),
     update() {
       let data = {
         email: this.userInfo.email,
@@ -174,60 +224,7 @@ export default {
         },
         phone: this.userInfo.phone,
       };
-
-      // console.log(data);
       this.updateUserInfo(data);
-
-      // fetch("https://fakestoreapi.com/users/1", {
-      //   method: "PUT",
-      //   body: JSON.stringify({
-      //     email: "John@gmail.com",
-      //     username: "johnd",
-      //     password: "m38rmF$",
-      //     name: {
-      //       firstname: "John",
-      //       lastname: "Doe",
-      //     },
-      //     address: {
-      //       city: "kilcoole",
-      //       street: "7835 new road",
-      //       number: 3,
-      //       zipcode: "12926-3874",
-      //       geolocation: {
-      //         lat: "-37.3159",
-      //         long: "81.1496",
-      //       },
-      //     },
-      //     phone: "1-570-236-7033",
-      //   }),
-      // })
-      //   .then((res) => res.json())
-      //   .then((json) => console.log(json));
-      // fetch("https://fakestoreapi.com/users/7", {
-      //   method: "PATCH",
-      //   body: JSON.stringify({
-      //     email: "John@gmail.com",
-      //     username: "johnd",
-      //     password: "m38rmF$",
-      //     name: {
-      //       firstname: "John",
-      //       lastname: "Doe",
-      //     },
-      //     address: {
-      //       city: "kilcoole",
-      //       street: "7835 new road",
-      //       number: 3,
-      //       zipcode: "12926-3874",
-      //       geolocation: {
-      //         lat: "-37.3159",
-      //         long: "81.1496",
-      //       },
-      //     },
-      //     phone: "1-570-236-7033",
-      //   }),
-      // })
-      //   .then((res) => res.json())
-      //   .then((json) => console.log(json));
     },
   },
 };
@@ -241,13 +238,13 @@ export default {
     font-size: 30px;
     text-align: left;
     margin-bottom: 20px;
-    // font-weight: 600;
   }
   .userInfo {
     .el-row {
       margin-bottom: 10px;
       display: flex;
       align-items: center;
+      flex-wrap: wrap;
     }
     .button {
       margin-top: 20px;
@@ -258,6 +255,11 @@ export default {
         border: none;
         width: 30%;
       }
+    }
+  }
+  @media (max-width: 767px) {
+    .userInfo,.el-input {
+      font-size: 10px;
     }
   }
 }

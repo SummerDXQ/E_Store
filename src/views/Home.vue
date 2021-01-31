@@ -16,15 +16,35 @@
 import { mapActions, mapState } from "vuex";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Pagination from "@/components/Pagination";
-import Product from "@/components/Product";
-import ProductList from "./ProductList";
 
 export default {
   name: "Home",
   components: {
     Header,
     Footer,
+  },
+  computed: {
+    ...mapState(["showSearchBar", "showSorting", "showFilter"]),
+  },
+  beforeRouteEnter(to, from, next) {
+    next((vm) => {
+      if (!vm.showSearchBar) {
+        vm.changeShowSearchBar(true);
+      }
+      if (!vm.showSorting) {
+        vm.changeShowSorting(true);
+      }
+      if (!vm.showFilter) {
+        vm.changeShowFilter(true);
+      }
+    });
+  },
+  methods: {
+    ...mapActions([
+      "changeShowSearchBar",
+      "changeShowSorting",
+      "changeShowFilter",
+    ]),
   },
 };
 </script>
@@ -34,13 +54,13 @@ export default {
   width: 100vw;
   height: 100vh;
   .content {
-    padding-top: 100px;
+    padding-top: 130px;
     min-height: calc(100vh - 150px);
-     .el-main {
-        width: 100%;
-        // padding: 0 80px;
-        width: 100%;
-      }
+    .el-main {
+      width: 100%;
+      // padding: 0 80px;
+      width: 100%;
+    }
     @media (min-width: 992px) {
       .el-main {
         // width: 100%;

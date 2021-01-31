@@ -19,6 +19,7 @@
         :lg="6"
         :xl="6"
         class="search_bar"
+        v-if="showSearchBar"
       >
         <SearchBar />
       </el-col>
@@ -29,6 +30,7 @@
         :lg="{ span: 3, offset: 5 }"
         :xl="{ span: 3, offset: 5 }"
         class="sort"
+        v-if="showSorting"
       >
         <el-select v-model="sortingvalue" placeholder="sort by price">
           <el-option
@@ -47,6 +49,7 @@
         :lg="{ span: 3 }"
         :xl="{ span: 3 }"
         class="filter"
+        v-if="showFilter"
       >
         <el-select v-model="selectedCategory" placeholder="filter by category">
           <el-option
@@ -104,7 +107,7 @@ export default {
     SearchBar,
   },
   computed: {
-    ...mapState(["categories", "sortingvalue"]),
+    ...mapState(["categories", "sortingvalue","showSearchBar", "showSorting", "showFilter"]),
     selectedCategory: {
       get() {
         return this.$store.state.selectedCategory;

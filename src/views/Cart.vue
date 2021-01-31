@@ -69,7 +69,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(["cartInfo", "allProducts"]),
+    ...mapState([
+      "cartInfo",
+      "allProducts",
+      "showSearchBar",
+      "showSorting",
+      "showFilter",
+    ]),
     totalNumber() {
       let total = 0;
       this.cartInfo.forEach((item) => {
@@ -83,14 +89,30 @@ export default {
   },
   created() {
     this.getCartInfo();
+    console.log(this.$route);
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
       vm.getAllProducts();
+      if (vm.showSearchBar) {
+        vm.changeShowSearchBar(false);
+      }
+      if (vm.showSorting) {
+        vm.changeShowSorting(false);
+      }
+      if (vm.showFilter) {
+        vm.changeShowFilter(false);
+      }
     });
   },
   methods: {
-    ...mapActions(["getCartInfo", "getAllProducts"]),
+    ...mapActions([
+      "getCartInfo",
+      "getAllProducts",
+      "changeShowSearchBar",
+      "changeShowSorting",
+      "changeShowFilter",
+    ]),
   },
 };
 </script>

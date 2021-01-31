@@ -29,40 +29,15 @@ export default {
     return {
       pageNumber: this.currentPage,
     };
-  },
-  //   computed:{
-  //       current:{
-  //           get(){
-  //               return this.currentPage
-  //           },
-  //           set(val){
-  //               console.log(val)
-  //               return val
-  //             //   this.currentPage = val;
-
-  //           }
-  //       }
-  //   },
-  //   mounted(){
-  //       console.log('current page',this.currentPage)
-  //   },
-  //   destroyed(){
-  //       console.log('destroyed')
-  //   }
+  }
 };
 </script>
 
 <style lang="less" scoped>
 .pagination {
-  // height: 20px;
-  // padding: 10px 0;
   padding: 20px 0;
   .el-pagination {
     text-align: center;
   }
 }
-// .el-pagination.is-background .el-pager li:not(.disabled).active {
-//     background-color: #343a40 !important;
-//     color: #FFF;
-//   }
 </style>

@@ -17,6 +17,9 @@ const types = {
   SET_SORTING_VALUE: "SET_SORTING_VALUE",
   SET_CART_INFO: "SET_CART_INFO",
   SET_USER_INFO: "SET_USER_INFO",
+  SET_SHOW_SEARCHBAR: "SET_SHOW_SEARCHBAR",
+  SET_SHOW_SORTING: "SET_SHOW_SORTING",
+  SET_SHOW_FILTER: "SET_SHOW_FILTER",
 };
 
 const state = {
@@ -29,6 +32,9 @@ const state = {
   sortingvalue: "",
   cartInfo: "",
   userInfo: {},
+  showSearchBar:true,
+  showSorting:true,
+  showFilter:true
   // searchKeyword: "",
 };
 
@@ -75,6 +81,15 @@ const mutations = {
   },
   [types.SET_USER_INFO](state, payload) {
     state.userInfo = payload;
+  },
+  [types.SET_SHOW_SEARCHBAR](state, payload) {
+    state.showSearchBar = payload;
+  },
+  [types.SET_SHOW_SORTING](state, payload) {
+    state.showSorting = payload;
+  },
+  [types.SET_SHOW_FILTER](state, payload) {
+    state.showFilter = payload;
   },
 };
 
@@ -165,6 +180,15 @@ const actions = {
   },
   changeSortingValue({ commit }, payload) {
     commit(types.SET_SORTING_VALUE, payload);
+  },
+  changeShowSearchBar({ commit }, payload){
+    commit(types.SET_SHOW_SEARCHBAR, payload);
+  },
+  changeShowSorting({ commit }, payload){
+    commit(types.SET_SHOW_SORTING, payload);
+  },
+  changeShowFilter({ commit }, payload){
+    commit(types.SET_SHOW_FILTER, payload);
   },
 };
 export default new Vuex.Store({
