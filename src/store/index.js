@@ -16,6 +16,7 @@ const types = {
   SET_SELECTED_CATEGORY: "SET_SELECTED_CATEGORY",
   SET_SORTING_VALUE: "SET_SORTING_VALUE",
   SET_CART_INFO: "SET_CART_INFO",
+  SET_USER_INFO: "SET_USER_INFO",
 };
 
 const state = {
@@ -26,7 +27,8 @@ const state = {
   categories: JSON.parse(localStorage.getItem("estore_categories")) || [],
   selectedCategory: "",
   sortingvalue: "",
-  cartInfo:""
+  cartInfo: "",
+  userInfo: "",
   // searchKeyword: "",
 };
 
@@ -71,6 +73,9 @@ const mutations = {
   [types.SET_CART_INFO](state, payload) {
     state.cartInfo = payload;
   },
+  [types.SET_USER_INFO](state, payload) {
+    state.userInfo = payload;
+  },
 };
 
 const actions = {
@@ -114,10 +119,22 @@ const actions = {
       totalPageSection[rootState.currentPage - 1]
     );
   },
-  async getCartInfo({commit}){
-    let cartInfo = await axiosInstance('/carts/user/1');
+  async getCartInfo({ commit }) {
+    let cartInfo = await axiosInstance("/carts/user/1");
     commit(types.SET_CART_INFO, cartInfo);
-    console.log(cartInfo);
+    // console.log(cartInfo);
+  },
+  async getUserInfo({ commit }) {
+    let userInfo = await axiosInstance("/users/1");
+    console.log(userInfo);
+    commit(types.SET_USER_INFO, userInfo);
+  },
+  async updateUserInfo({commit},payload){
+
+    
+    console.log(JSON.stringify(payload));
+    let userInfo = await axiosInstance.put("/users/1",JSON.stringify(payload));
+    console.log(userInfo);
   },
   sortProduct({ commit, rootState }, payload) {
     commit(types.SORT_PRODUCTS, payload);
@@ -140,15 +157,6 @@ const actions = {
       types.SET_SHOW_PRODUCTS,
       rootState.totalPageSection[rootState.currentPage - 1]
     );
-    // let totalPageSection = paginate(
-    //   rootState.products,
-    //   Number(process.env.VUE_APP_PAGESIZE)
-    // );
-    // commit(types.SET_TOTAL_PAGE_SECTION, totalPageSection);
-    // commit(
-    //   types.SET_SHOW_PRODUCTS,
-    //   totalPageSection[rootState.currentPage - 1]
-    // );
   },
   changeSelectedCategory({ commit }, payload) {
     commit(types.SET_SELECTED_CATEGORY, payload);
