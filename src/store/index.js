@@ -35,11 +35,11 @@ const state = {
   showSearchBar: true,
   showSorting: true,
   showFilter: true,
-  // searchKeyword: "",
 };
 
 const mutations = {
   [types.SET_ALL_PRODUCTS](state, payload) {
+    // for search by ID function
     if (Object.prototype.toString.call(payload) === "[object Object]") {
       state.allProducts = [];
       state.allProducts.push(payload);
@@ -68,7 +68,6 @@ const mutations = {
     state.allProducts.sort(sortBy("price", payload));
   },
   [types.SET_CURRENT_PAGE](state, payload) {
-    console.log('重置页码')
     state.currentPage = payload;
   },
   [types.SET_SELECTED_CATEGORY](state, payload) {
@@ -94,50 +93,49 @@ const mutations = {
   },
 };
 
+const pageSize = Number(process.env.VUE_APP_PAGESIZE);
 const actions = {
+  // request all products from server
   async getAllProducts({ commit, rootState }) {
     let products = await axiosInstance("/products");
-    errorHandle(products);
+    if (errorHandle(products)) {return}
     commit(types.SET_ALL_PRODUCTS, products);
-    let totalPageSection = paginate(
-      products,
-      Number(process.env.VUE_APP_PAGESIZE)
-    );
+    let totalPageSection = paginate(products, pageSize);
     commit(types.SET_TOTAL_PAGE_SECTION, totalPageSection);
     commit(
       types.SET_SHOW_PRODUCTS,
       totalPageSection[rootState.currentPage - 1]
     );
   },
+  // search product by product ID
   async searchById({ commit }, id) {
     commit(types.SET_ALL_PRODUCTS, []);
     let products = await axiosInstance(`/products/${id}`);
-    errorHandle(products);
+    if (errorHandle(products)) {return}
     commit(types.SET_ALL_PRODUCTS, products);
     commit(types.SET_SHOW_PRODUCTS, products);
     commit(types.SET_TOTAL_PAGE_SECTION, []);
   },
+  // request all categories
   async getAllCategories({ commit }) {
     let categories = await axiosInstance("/products/categories");
-    errorHandle(categories);
+    if (errorHandle(categories)) {return}
+    // if categories do not change frequently, we can store them in localStorage, and also can set expire data
     localStorage.setItem("estore_categories", JSON.stringify(categories));
     commit(types.SET_CATEGORIES, categories);
   },
+  // filter products by selected category
   async filterByCategory({ commit, rootState }, payload) {
     commit(types.SET_CURRENT_PAGE, 1);
     let products = await axiosInstance(`/products/category/${payload}`);
-    errorHandle(products);
+    if (errorHandle(products)) {return}
     commit(types.SET_ALL_PRODUCTS, products);
     if (rootState.sortingvalue === "asc") {
       commit(types.SORT_PRODUCTS, "asc");
     } else if (rootState.sortingvalue === "desc") {
       commit(types.SORT_PRODUCTS, "desc");
     }
-
-    let totalPageSection = paginate(
-      products,
-      Number(process.env.VUE_APP_PAGESIZE)
-    );
+    let totalPageSection = paginate(products, pageSize);
     commit(types.SET_TOTAL_PAGE_SECTION, totalPageSection);
     commit(
       types.SET_SHOW_PRODUCTS,
@@ -146,30 +144,23 @@ const actions = {
   },
   async getCartInfo({ commit }) {
     let cartInfo = await axiosInstance("/carts/user/1");
-    errorHandle(cartInfo);
+    if (errorHandle(cartInfo)) {return}
     commit(types.SET_CART_INFO, cartInfo);
-    console.log(cartInfo);
   },
   async getUserInfo({ commit }) {
     let userInfo = await axiosInstance("/users/1");
-    errorHandle(userInfo);
-    // console.log(userInfo);
+    if (errorHandle(userInfo)) {return}
     commit(types.SET_USER_INFO, userInfo);
   },
   async updateUserInfo({ commit }, payload) {
-    // console.log(JSON.stringify(payload));
     let userInfo = await axiosInstance.put("/users/1", JSON.stringify(payload));
-    errorHandle(userInfo);
+    if (errorHandle(userInfo)) {return}
     commit(types.SET_USER_INFO, userInfo);
   },
   sortProduct({ commit, rootState }, payload) {
     commit(types.SET_CURRENT_PAGE, 1);
     commit(types.SORT_PRODUCTS, payload);
-
-    let totalPageSection = paginate(
-      rootState.allProducts,
-      Number(process.env.VUE_APP_PAGESIZE)
-    );
+    let totalPageSection = paginate(rootState.allProducts, pageSize);
     commit(types.SET_TOTAL_PAGE_SECTION, totalPageSection);
     commit(
       types.SET_SHOW_PRODUCTS,
@@ -188,7 +179,6 @@ const actions = {
     commit(types.SET_SELECTED_CATEGORY, payload);
   },
   changeSortingValue({ commit }, payload) {
-    // console.log("changeSortingValue");
     commit(types.SET_SORTING_VALUE, payload);
   },
   changeShowSearchBar({ commit }, payload) {
@@ -201,9 +191,9 @@ const actions = {
     commit(types.SET_SHOW_FILTER, payload);
   },
 };
+
 export default new Vuex.Store({
   state,
   mutations,
   actions,
-  modules: {},
 });

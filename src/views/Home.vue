@@ -30,6 +30,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      // show searchBar,sorting and filter
       if (!vm.showSearchBar) {
         vm.changeShowSearchBar(true);
       }

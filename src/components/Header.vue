@@ -9,7 +9,6 @@
         :xl="2"
         class="logo"
       >
-        <!-- <span>ESTORE</span> -->
         <router-link to="/">ESTORE</router-link>
       </el-col>
       <el-col
@@ -89,35 +88,34 @@
 
 <script>
 import SearchBar from "@/components/SearchBar";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "Header",
   data() {
     return {
       sortOptions: ["asc", "desc"],
-      //   selectedCategory: "",
-      //   sortValue: "",
-      // categories:[]
-      // activeIndex: "1",
-      // activeIndex2: "1",
     };
   },
   components: {
     SearchBar,
   },
   computed: {
-    ...mapState(["categories", "sortingvalue","showSearchBar", "showSorting", "showFilter"]),
+    ...mapState([
+      "categories",
+      "sortingvalue",
+      "showSearchBar",
+      "showSorting",
+      "showFilter",
+    ]),
     selectedCategory: {
       get() {
         return this.$store.state.selectedCategory;
       },
       set(value) {
-        // console.log(value);
         this.changeSelectedCategory(value);
+        // refilter product if we select another category
         this.filterByCategory(value);
-        // console.log(value);
-        // return value;
       },
     },
     sortingvalue: {
@@ -126,9 +124,8 @@ export default {
       },
       set(value) {
         this.changeSortingValue(value);
+        // resort the product if we change the sorting order
         this.sortProduct(value);
-        // console.log(value);
-        // return value;
       },
     },
   },
@@ -140,24 +137,16 @@ export default {
       "changeSelectedCategory",
       "changeSortingValue",
     ]),
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
   },
   created() {
-    // console.log("getAllCategories");
     this.getAllCategories();
   },
   watch: {
     sortValue() {
-      //   console.log("拍讯", this.sortValue);
-
-      console.log("sortValue");
       this.changeSortingValue(this.sortValue);
       this.sortProduct(this.sortValue);
     },
     selectedCategory() {
-      console.log("selectedCategory");
       this.changeSelectedCategory(this.selectedCategory);
       this.filterByCategory(this.selectedCategory);
     },
@@ -178,9 +167,6 @@ export default {
   box-sizing: border-box;
   font-size: 20px;
   @media (max-width: 767px) {
-    // .header {
-    //   padding: 0 100px;
-    // }
     height: 130px;
     line-height: 40px;
     .logo {

@@ -3,7 +3,7 @@
     <el-pagination
       background
       @current-change="$emit('handleCurrentChange', pageNumber)"
-      :current-page.sync="pageNumber"
+      :current-page.sync="page"
       :page-size="pagesize"
       layout="prev, pager, next"
       :total="total"
@@ -28,22 +28,18 @@ export default {
   data() {
     return {
       pageNumber: this.currentPage,
-      menuKey:1,
-    };
+    }
   },
-  watch: {
-    pageNumber: {
-      handler() {
-        console.log("arguments")
-        // this.$forceUpdate();
-        // this.pageshow = false;
-        // this.$nextTick(() => {
-        //   this.pageshow = true;
-        // });
-        // ++this.menuKey;
-      },
-    },
-  },
+  computed:{
+    page:{
+        get(){
+          return this.currentPage
+        },
+        set(val){
+          this.pageNumber = val;
+        }
+    }
+  }
 };
 </script>
 

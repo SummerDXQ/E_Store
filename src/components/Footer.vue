@@ -11,7 +11,6 @@ footer {
   background-color: #343a40;
   color: #FFF;
   text-align: center;
-  // height: 15vh !important;
   line-height: 60px;
 }
 </style>

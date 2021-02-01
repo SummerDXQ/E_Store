@@ -26,7 +26,7 @@
 
       <el-row v-if="userInfo.name">
         <el-col
-          :xs="{ span: 5}"
+          :xs="{ span: 5 }"
           :sm="{ span: 3, offset: 1 }"
           :md="{ span: 4, offset: 2 }"
           :lg="{ span: 2, offset: 5 }"
@@ -107,7 +107,7 @@
           <span>Password:</span>
         </el-col>
         <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
-          <el-input 
+          <el-input
             placeholder="Please input password"
             v-model="userInfo.password"
             type="password"
@@ -131,31 +131,31 @@
             v-model="userInfo.address.number"
           ></el-input>
         </el-col>
-        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
+        <el-col :xs="{ span: 17, offset: 5 }" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Street"
             v-model="userInfo.address.street"
           ></el-input>
         </el-col>
-        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
+        <el-col :xs="{ span: 17, offset: 5 }" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="City"
             v-model="userInfo.address.city"
           ></el-input>
         </el-col>
-        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="3" :xl="2">
+        <el-col :xs="{ span: 17, offset: 5 }" :sm="3" :md="3" :lg="3" :xl="2">
           <el-input
             placeholder="Zipcode"
             v-model="userInfo.address.zipcode"
           ></el-input>
         </el-col>
-        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
+        <el-col :xs="{ span: 17, offset: 5 }" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Latitude"
             v-model="userInfo.address.geolocation.lat"
           ></el-input>
         </el-col>
-        <el-col :xs="{span:17,offset:5}" :sm="3" :md="3" :lg="2" :xl="2">
+        <el-col :xs="{ span: 17, offset: 5 }" :sm="3" :md="3" :lg="2" :xl="2">
           <el-input
             placeholder="Longitude"
             v-model="userInfo.address.geolocation.long"
@@ -177,6 +177,7 @@ import { mapActions, mapState } from "vuex";
 export default {
   name: "Profile",
   beforeRouteEnter(to, from, next) {
+    // hide searchBar,sorting and filter
     next((vm) => {
       if (vm.showSearchBar) {
         vm.changeShowSearchBar(false);
@@ -189,14 +190,14 @@ export default {
       }
     });
   },
-  created(){
-     this.getUserInfo();
+  created() {
+    this.getUserInfo();
   },
   computed: {
     ...mapState(["showSearchBar", "showSorting", "showFilter"]),
-    userInfo(){
-       return this.$store.state.userInfo;
-    }
+    userInfo() {
+      return this.$store.state.userInfo;
+    },
   },
   methods: {
     ...mapActions([
@@ -206,7 +207,9 @@ export default {
       "changeShowSorting",
       "changeShowFilter",
     ]),
+    // update userInfo
     update() {
+      // here we need to do more to validate user info(depends on requirements)
       let data = {
         email: this.userInfo.email,
         username: this.userInfo.username,
@@ -261,7 +264,8 @@ export default {
     }
   }
   @media (max-width: 767px) {
-    .userInfo,.el-input {
+    .userInfo,
+    .el-input {
       font-size: 10px;
     }
   }

@@ -2,7 +2,7 @@
   <div class="search_bar" :lg="6">
     <el-input
       class="keyword"
-      placeholder="search product"
+      placeholder="search product by ID"
       v-model="keyword"
       @keyup.enter.native="search"
     ></el-input>

@@ -1,5 +1,5 @@
 <template>
-  <el-row >
+  <el-row>
     <el-col
       :xs="24"
       :sm="12"
@@ -13,10 +13,9 @@
         <img :src="item.image" alt="" />
       </div>
       <div class="title">{{ item.title }}</div>
-     
       <p class="desc">{{ item.description }}</p>
       <span class="price">${{ item.price.toFixed(2) }}</span>
-       <span class="category">{{ item.category }}</span>
+      <span class="category">{{ item.category }}</span>
     </el-col>
   </el-row>
 </template>
@@ -28,7 +27,7 @@ export default {
       type: Array,
       required: true,
     },
-  }
+  },
 };
 </script>
 
@@ -51,8 +50,8 @@ export default {
     }
     .category {
       padding: 2px;
-      background: #FFAE00;
-      color: #5B3F04;
+      background: #ffae00;
+      color: #5b3f04;
       font-size: 14px;
       position: absolute;
       top: 0px;

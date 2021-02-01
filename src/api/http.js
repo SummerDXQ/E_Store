@@ -1,5 +1,5 @@
 import axios from "axios";
-// import { Loading } from 'element-ui';
+
 import { showLoading, hideLoading } from '../utils/loading';
 
 let instance = axios.create();
@@ -34,8 +34,9 @@ instance.interceptors.response.use(
     return response.data;
   },
   (reason) => {
+    hideLoading();
     let response = reason.response;
-    // for developer
+    // for debugging purpose (depend on project)
     if (response) {
       switch (response.status) {
         case 400:

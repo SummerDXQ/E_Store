@@ -17,11 +17,6 @@ import Product from "@/components/Product";
 
 export default {
   name: "ProductList",
-  // data(){
-  //   return{
-  //     loading:true
-  //   }
-  // },
   computed: {
     ...mapState([
       "allProducts",
@@ -33,16 +28,7 @@ export default {
     ]),
     pageSize() {
       return Number(process.env.VUE_APP_PAGESIZE);
-    },
-    // currentPage:{
-    //   get(){
-    //     this.$store.state.currentPage;
-    //   },
-    //   set(value){
-    //     console.log("set",value)
-    //     return value;
-    //   }
-    // }
+    }
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
@@ -75,17 +61,6 @@ export default {
   },
   created() {
     this.getAllProducts();
-  },
-  // mounted(){
-  //   // this.loading=false;
-  // }
-  // watch: {
-  //   currentPage: {
-  //     handler() {
-  //       console.log(arguments);
-  //       console.log("页码改变");
-  //     },
-  //   },
-  // },
+  }
 };
 </script>

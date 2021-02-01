@@ -76,6 +76,7 @@ export default {
       "showSorting",
       "showFilter",
     ]),
+    // amount of products in the cart
     totalNumber() {
       let total = 0;
       this.cartInfo.forEach((item) => {
@@ -85,15 +86,15 @@ export default {
       });
       return total;
     },
-    totalPrice() {},
   },
   created() {
     this.getCartInfo();
-    console.log(this.$route);
   },
   beforeRouteEnter(to, from, next) {
     next((vm) => {
+      // in case user refresh current page, all of the data in vuex will disappear and cause error
       vm.getAllProducts();
+      // hide searchBar,sorting and filter
       if (vm.showSearchBar) {
         vm.changeShowSearchBar(false);
       }

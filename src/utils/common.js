@@ -1,11 +1,10 @@
+// sort product
 export const sortBy = (attr, order) => {
-  console.log("order", order);
   order == undefined
     ? (order = 1)
     : order === "asc"
     ? (order = 1)
     : (order = -1);
-  console.log(order);
   return (object1, object2) => {
     var value1 = object1[attr];
     var value2 = object2[attr];
@@ -19,6 +18,7 @@ export const sortBy = (attr, order) => {
   };
 };
 
+// divide products to diffent page
 export const paginate = (dataSource, pageSize) => {
   let totalPageSection = [];
   let pageNumber = Math.ceil(dataSource.length / pageSize) || 1;
@@ -28,9 +28,10 @@ export const paginate = (dataSource, pageSize) => {
   return totalPageSection;
 };
 
+// error reminder
 export const errorHandle = (result) => {
   if (result.unifiedErrorCode) {
     alert(result.errorMessage);
-    return;
+    return true;
   }
 };
