@@ -1,4 +1,6 @@
 import axios from "axios";
+// import { Loading } from 'element-ui';
+import { showLoading, hideLoading } from '../utils/loading';
 
 let instance = axios.create();
 
@@ -9,10 +11,10 @@ switch (env) {
     instance.defaults.baseURL = "/api";
     break;
   case "test":
-    instance.defaults.baseURL = "https://fakestoreapi.com/";
+    instance.defaults.baseURL = "/api";
     break;
   case "production":
-    instance.defaults.baseURL = "https://fakestoreapi.com/";
+    instance.defaults.baseURL = "/api";
     break;
 }
 
@@ -21,8 +23,14 @@ instance.defaults.withCredentials = true;
 instance.defaults.validateStatus = (status) => {
   return status >= 200 && status < 400;
 };
+instance.interceptors.request.use((config)=>{
+  showLoading();
+  return config;
+})
+
 instance.interceptors.response.use(
   (response) => {
+    hideLoading();
     return response.data;
   },
   (reason) => {

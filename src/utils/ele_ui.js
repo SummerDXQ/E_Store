@@ -15,7 +15,8 @@ import {
   Alert,
   Menu,
   Submenu,
-  MenuItem
+  MenuItem,
+  Loading
 } from "element-ui";
 
 Vue.use(Button);
@@ -34,3 +35,4 @@ Vue.use(Alert);
 Vue.use(Menu);
 Vue.use(Submenu);
 Vue.use(MenuItem);
+Vue.use(Loading);

@@ -1,5 +1,5 @@
 <template>
-  <el-row>
+  <el-row >
     <el-col
       :xs="24"
       :sm="12"
@@ -28,7 +28,7 @@ export default {
       type: Array,
       required: true,
     },
-  },
+  }
 };
 </script>
 

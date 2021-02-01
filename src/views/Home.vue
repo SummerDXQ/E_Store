@@ -4,7 +4,9 @@
     <div class="content">
       <el-container>
         <el-main>
+          <keep-alive include="Profile"> 
           <router-view />
+          </keep-alive>
         </el-main>
       </el-container>
     </div>

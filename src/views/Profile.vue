@@ -107,9 +107,10 @@
           <span>Password:</span>
         </el-col>
         <el-col :xs="17" :sm="8" :md="7" :lg="6" :xl="6">
-          <el-input
+          <el-input 
             placeholder="Please input password"
             v-model="userInfo.password"
+            type="password"
           ></el-input>
         </el-col>
       </el-row>
@@ -177,7 +178,6 @@ export default {
   name: "Profile",
   beforeRouteEnter(to, from, next) {
     next((vm) => {
-      vm.getUserInfo();
       if (vm.showSearchBar) {
         vm.changeShowSearchBar(false);
       }
@@ -188,6 +188,9 @@ export default {
         vm.changeShowFilter(false);
       }
     });
+  },
+  created(){
+     this.getUserInfo();
   },
   computed: {
     ...mapState(["showSearchBar", "showSorting", "showFilter"]),

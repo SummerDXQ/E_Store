@@ -28,8 +28,22 @@ export default {
   data() {
     return {
       pageNumber: this.currentPage,
+      menuKey:1,
     };
-  }
+  },
+  watch: {
+    pageNumber: {
+      handler() {
+        console.log("arguments")
+        // this.$forceUpdate();
+        // this.pageshow = false;
+        // this.$nextTick(() => {
+        //   this.pageshow = true;
+        // });
+        // ++this.menuKey;
+      },
+    },
+  },
 };
 </script>
 

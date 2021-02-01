@@ -32,9 +32,9 @@ const state = {
   sortingvalue: "",
   cartInfo: "",
   userInfo: {},
-  showSearchBar:true,
-  showSorting:true,
-  showFilter:true
+  showSearchBar: true,
+  showSorting: true,
+  showFilter: true,
   // searchKeyword: "",
 };
 
@@ -68,6 +68,7 @@ const mutations = {
     state.allProducts.sort(sortBy("price", payload));
   },
   [types.SET_CURRENT_PAGE](state, payload) {
+    console.log('重置页码')
     state.currentPage = payload;
   },
   [types.SET_SELECTED_CATEGORY](state, payload) {
@@ -123,9 +124,16 @@ const actions = {
     commit(types.SET_CATEGORIES, categories);
   },
   async filterByCategory({ commit, rootState }, payload) {
+    commit(types.SET_CURRENT_PAGE, 1);
     let products = await axiosInstance(`/products/category/${payload}`);
     errorHandle(products);
     commit(types.SET_ALL_PRODUCTS, products);
+    if (rootState.sortingvalue === "asc") {
+      commit(types.SORT_PRODUCTS, "asc");
+    } else if (rootState.sortingvalue === "desc") {
+      commit(types.SORT_PRODUCTS, "desc");
+    }
+
     let totalPageSection = paginate(
       products,
       Number(process.env.VUE_APP_PAGESIZE)
@@ -149,14 +157,14 @@ const actions = {
     commit(types.SET_USER_INFO, userInfo);
   },
   async updateUserInfo({ commit }, payload) {
-    console.log(JSON.stringify(payload));
+    // console.log(JSON.stringify(payload));
     let userInfo = await axiosInstance.put("/users/1", JSON.stringify(payload));
     errorHandle(userInfo);
     commit(types.SET_USER_INFO, userInfo);
   },
   sortProduct({ commit, rootState }, payload) {
-    commit(types.SORT_PRODUCTS, payload);
     commit(types.SET_CURRENT_PAGE, 1);
+    commit(types.SORT_PRODUCTS, payload);
 
     let totalPageSection = paginate(
       rootState.allProducts,
@@ -176,18 +184,20 @@ const actions = {
     );
   },
   changeSelectedCategory({ commit }, payload) {
+    commit(types.SET_CURRENT_PAGE, 1);
     commit(types.SET_SELECTED_CATEGORY, payload);
   },
   changeSortingValue({ commit }, payload) {
+    // console.log("changeSortingValue");
     commit(types.SET_SORTING_VALUE, payload);
   },
-  changeShowSearchBar({ commit }, payload){
+  changeShowSearchBar({ commit }, payload) {
     commit(types.SET_SHOW_SEARCHBAR, payload);
   },
-  changeShowSorting({ commit }, payload){
+  changeShowSorting({ commit }, payload) {
     commit(types.SET_SHOW_SORTING, payload);
   },
-  changeShowFilter({ commit }, payload){
+  changeShowFilter({ commit }, payload) {
     commit(types.SET_SHOW_FILTER, payload);
   },
 };
